@@ -1,0 +1,30 @@
+{
+  "name": "meli_api",
+  "version": "1.0.0",
+  "description": "server alert api",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "mercadolibre",
+    "server",
+    "alert",
+    "api"
+  ],
+  "author": "ariel silva",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1",
+    "knex": "^0.95.4",
+    "morgan": "^1.10.0",
+    "mysql": "^2.18.1",
+    "nodemon": "^2.0.7",
+    "prettier": "^2.2.1"
+  },
+  "devDependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0"
+  }
+}
