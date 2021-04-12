@@ -5,11 +5,9 @@ const list = async (req, res) => {
   try {
     const { search, page } = req.query || "";
     const alerts = await service.getItems(search, page);
-    const countAlerts = await service.countAlerts(search);
-    const countedAlerts = countAlerts.length;
-    const pagination = service.pagination(countedAlerts, req);
-    pagination.total = countedAlerts;
-    console.log(alerts)
+    const [{countAlerts}] = await service.countAlerts(search);
+    const pagination = service.pagination(countAlerts, req);
+    pagination.total = countAlerts;
     return res.json({ alerts, ...pagination });
   } catch (e) {
     console.log(e);

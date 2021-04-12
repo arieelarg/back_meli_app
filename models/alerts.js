@@ -5,16 +5,16 @@ const serverType = process.env.SERVER_TYPE_TABLE;
 const limit = process.env.LIMIT_RESPONSE;
 const base_url = process.env.BASE_URL;
 
-const countAlerts = (searchValue) =>
+const countAlerts = (searchValue = "") =>
   db(`${alert} as AT`)
     .join(`${server} AS SV`, "AT.server_id", "SV.id")
-    .select("AT.id")
     .whereRaw(`SV.server like '%${searchValue}%'`)
     .orWhere({
       ...(searchValue ? { "AT.description": searchValue } : {}),
-    });
+    })
+    .count("* as countAlerts");
 
-const getAlerts = (searchValue, page) =>
+const getAlerts = (searchValue = "", page = 1) =>
   db(`${alert} as AT`)
     .join(`${server} AS SV`, "AT.server_id", "SV.id")
     .join(`${serverType} AS STP`, "SV.server_type", "STP.id")
@@ -71,7 +71,6 @@ const pagination = (countAlerts, req) => {
     } else {
       moreInfo.limit = limit;
     }
-    console.log("moreInfo: ", moreInfo);
     return moreInfo;
   } catch (e) {
     console.log(e);
