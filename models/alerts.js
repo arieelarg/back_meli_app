@@ -26,9 +26,7 @@ const getAlerts = (searchValue = "", page = 1) =>
       "AT.created_at"
     )
     .whereRaw(`SV.server like '%${searchValue}%'`)
-    .orWhere({
-      ...(searchValue ? { "AT.description": `${searchValue}` } : {}),
-    })
+    .orWhereRaw(`AT.description like '%${searchValue}%'`)
     .limit(limit)
     .offset(page === 0 || page === 1 ? 0 : (page - 1) * limit);
 
