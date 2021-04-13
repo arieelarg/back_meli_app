@@ -1,0 +1,16 @@
+version: "3.7"
+services:
+  db:
+    image: mysql:5.7
+    command: --default-authentication-plugin=mysql_native_password
+    container_name: 'meli_mysql_server'
+    restart: always
+    volumes:
+      - ./mysql_dump:/docker-entrypoint-initdb.d
+    environment:
+      MYSQL_ROOT_PASSWORD: meli_password
+      MYSQL_DATABASE: meli_api_db
+      #MYSQL_USER: meli
+      #MYSQL_PASSWORD: admin
+    ports:
+      - "3306:3306"
